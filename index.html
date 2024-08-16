@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Year Countdown</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #545c6b;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .countcont {
+            text-align: center;
+        }
+        .countcont h1 {
+            font-size: 4rem;
+            text-decoration: underline;
+        }
+        .countcont .time {
+            font-size: 2rem;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="countcont">
+        <h1><strong>New Year Countdown</strong></h1>
+        <div id="countdown">
+            <div class="time" id="days">00</div>
+            <div class="time" id="hours">00</div>
+            <div class="time" id="minutes">00</div>
+            <div class="time" id="seconds">00</div>
+        </div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const newYear = new Date(`January 1, ${new Date().getFullYear() + 1} 00:00:00`).getTime();
+            const now = new Date().getTime();
+            const distance = newYear - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days + " Days";
+            document.getElementById('hours').innerText = hours + " Hours";
+            document.getElementById('minutes').innerText = minutes + " Minutes";
+            document.getElementById('seconds').innerText = seconds + " Seconds";
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById('countdown').innerHTML = "<h2>Happy New Year!</h2>";
+            }
+        }
+
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
